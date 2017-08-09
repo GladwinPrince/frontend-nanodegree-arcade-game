@@ -24,7 +24,7 @@ Enemy.prototype.update = function(dt) {
     this.posX += this.moveSpeed * dt;
     //Looping enemy movement in a lane
     this.posX %= 505;
-
+    //Checking whether the player is in range of enemy
     checkPlayerPosition(this);
 };
 
@@ -34,6 +34,7 @@ Enemy.prototype.render = function() {
 };
 
 var checkPlayerPosition = function(enemyObj) {
+    //Checking if the player is in range of the enemy and resetting the player
     if (Math.abs(player.posY - enemyObj.posY) <= 25 && Math.abs(player.posX - enemyObj.posX) <= 74) {
         player.posX = randomPlayerPosX();
         player.posY = randomPlayerPosY();
@@ -50,18 +51,21 @@ var Player = function(positionX, positionY, movementX, movementY) {
     //Initializing X-axis and Y-axis movement distance of player
     this.moveX = movementX;
     this.moveY = movementY;
-
+    //Initializing Score and Level of the user
     this.score = 0;
     this.level = 1;
+    //Generating enemies based on player level
     randomizeEnemies(this.level);
     this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function(dt) {
+    //Checking if the player has reached the destination
     if (player.posY === -25) {
         player.posX = randomPlayerPosX();
         player.posY = randomPlayerPosY();
         console.log("Win!!");
+        //updating score based on victory
         player.score++;
         if (player.score === 5) {
             player.score = 0;
@@ -69,6 +73,7 @@ Player.prototype.update = function(dt) {
             randomizeEnemies(player.level);
         }
     }
+    //Displaying Score
     displayScore();
 };
 
@@ -77,6 +82,7 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(loggedKey) {
+    //Finding and executing input command
     switch (loggedKey) {
         case "left":
             if (player.posX !== 0) {
@@ -106,18 +112,22 @@ Player.prototype.handleInput = function(loggedKey) {
 };
 
 var randomPlayerPosX = function() {
+    //Algorithm to generate random X-axis position for player
     return ((Math.floor(Math.random() * 5)) * 101);
 };
 
 var randomPlayerPosY = function() {
+    //Algorithm to generate random Y-axis position for player
     return (((4 + Math.round(Math.random())) * 83) - 25);
 };
 
 var randomEnemyPos = function() {
+    //Algorithm to generate random Y-axis position for enemy
     return (((1 + Math.floor(Math.random() * 3)) * 83) - 20);
 };
 
 var randomizeEnemies = function(level) {
+    //Generating random enemies based on level
     allEnemies = [];
     for (var i = 0; i < level; i++) {
         allEnemies.push(new Enemy(0, randomEnemyPos(), (35 + Math.random() * 50)));
@@ -125,6 +135,7 @@ var randomizeEnemies = function(level) {
 };
 
 var displayScore = function() {
+    //Function to update score
     document.getElementById("score").innerHTML = player.score;
     document.getElementById("level").innerHTML = player.level;
 };
