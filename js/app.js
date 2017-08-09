@@ -23,7 +23,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     this.posX += this.moveSpeed * dt;
     //Looping enemy movement in a lane
-    this.posX%=505;
+    this.posX %= 505;
 
     checkPlayerPosition(this);
 };
@@ -33,10 +33,10 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.posX, this.posY);
 };
 
-var checkPlayerPosition = function(enemyObj){
-    if(Math.abs(player.posY-enemyObj.posY)<=25 && Math.abs(player.posX-enemyObj.posX)<=74){
-        player.posX=randomPlayerPosX();
-        player.posY=randomPlayerPosY();
+var checkPlayerPosition = function(enemyObj) {
+    if (Math.abs(player.posY - enemyObj.posY) <= 25 && Math.abs(player.posX - enemyObj.posX) <= 74) {
+        player.posX = randomPlayerPosX();
+        player.posY = randomPlayerPosY();
     }
 }
 
@@ -51,20 +51,20 @@ var Player = function(positionX, positionY, movementX, movementY) {
     this.moveX = movementX;
     this.moveY = movementY;
 
-    this.score=0;
-    this.level=1;
+    this.score = 0;
+    this.level = 1;
     randomizeEnemies(this.level);
     this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function(dt) {
-    if(player.posY===-25){
-        player.posX=randomPlayerPosX();
-        player.posY=randomPlayerPosY();
+    if (player.posY === -25) {
+        player.posX = randomPlayerPosX();
+        player.posY = randomPlayerPosY();
         console.log("Win!!");
         player.score++;
-        if(player.score===5){
-            player.score=0;
+        if (player.score === 5) {
+            player.score = 0;
             player.level++;
             randomizeEnemies(player.level);
         }
@@ -79,23 +79,23 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(loggedKey) {
     switch (loggedKey) {
         case "left":
-            if(player.posX!==0){
-                player.posX-=player.moveX;
+            if (player.posX !== 0) {
+                player.posX -= player.moveX;
             }
             break;
         case "up":
-            if(player.posY!==-25){
-                player.posY-=player.moveY;
+            if (player.posY !== -25) {
+                player.posY -= player.moveY;
             }
             break;
         case "right":
-            if((player.posX+player.moveX)<(5*101)){
-                player.posX+=player.moveX;
+            if ((player.posX + player.moveX) < (5 * 101)) {
+                player.posX += player.moveX;
             }
             break;
         case "down":
-            if((player.posY+player.moveY)<(5*83)){
-                player.posY+=player.moveY;
+            if ((player.posY + player.moveY) < (5 * 83)) {
+                player.posY += player.moveY;
             }
             break;
     }
@@ -105,26 +105,26 @@ Player.prototype.handleInput = function(loggedKey) {
 
 };
 
-var randomPlayerPosX = function(){
-    return ((Math.floor(Math.random()*5))*101);
+var randomPlayerPosX = function() {
+    return ((Math.floor(Math.random() * 5)) * 101);
 };
 
-var randomPlayerPosY = function(){
-    return (((4+Math.round(Math.random()))*83)-25);
+var randomPlayerPosY = function() {
+    return (((4 + Math.round(Math.random())) * 83) - 25);
 };
 
-var randomEnemyPos = function(){
-    return (((1+Math.floor(Math.random()*3))*83)-20);
+var randomEnemyPos = function() {
+    return (((1 + Math.floor(Math.random() * 3)) * 83) - 20);
 };
 
-var randomizeEnemies = function(level){
-    allEnemies=[];
-    for(var i=0; i<level; i++){
-        allEnemies.push(new Enemy(0,randomEnemyPos(),(35+Math.random()*50)));
+var randomizeEnemies = function(level) {
+    allEnemies = [];
+    for (var i = 0; i < level; i++) {
+        allEnemies.push(new Enemy(0, randomEnemyPos(), (35 + Math.random() * 50)));
     }
 };
 
-var displayScore = function(){
+var displayScore = function() {
     document.getElementById("score").innerHTML = player.score;
     document.getElementById("level").innerHTML = player.level;
 };
@@ -133,7 +133,7 @@ var displayScore = function(){
 // Place the player object in a variable called player
 var allEnemies = [];
 //Creating New Player in a random location in the grass area
-player = new Player(randomPlayerPosX(),randomPlayerPosY(),101,83);
+player = new Player(randomPlayerPosX(), randomPlayerPosY(), 101, 83);
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
