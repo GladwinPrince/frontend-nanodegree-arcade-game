@@ -7,7 +7,7 @@
 2. Open the index.html file in the Project using a Web Browser that supports JavaScript.
 
 ## Sources
-This project is part of a Nanodegree program at Udacity. The Main Branch was forked from Udacity's GitHub project[Click Here](https://github.com/udacity/frontend-nanodegree-arcade-game).
+This project is part of a Nanodegree program at Udacity. The Main Branch was forked from Udacity's GitHub project[Click Here] (https://github.com/udacity/frontend-nanodegree-arcade-game).
 
 ## Pre-Requirements
 * A computer.
