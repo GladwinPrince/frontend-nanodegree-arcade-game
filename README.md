@@ -10,10 +10,10 @@
 This project is part of a Nanodegree program at Udacity. The Main Branch was forked from Udacity's GitHub project[Click Here](https://github.com/udacity/frontend-nanodegree-arcade-game).
 
 ## Pre-Requirements
-1.A computer.
-2.Web Browser with JavaScript supports.
-3.Web Browser with HTML5 support(Canvas API)
-4.Lots of Free Time.
+* A computer.
+* Web Browser with JavaScript supports.
+* Web Browser with HTML5 support(Canvas API)
+* Lots of Free Time.
 
 ### Controls
 Up arrow- Moves player up
