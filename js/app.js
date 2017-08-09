@@ -47,11 +47,16 @@ Player.prototype.update = function(dt) {
     //This function is declared to workaround the JS error for missing update function.
 };
 
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.posX, this.posY);
+};
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [];
-player = new Player(0,0,0,0);
+//Creating New Player in a random location in the grass area
+player = new Player((Math.floor(Math.random()*5))*101,((4+Math.round(Math.random()))*83)-25,0,0);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
