@@ -24,12 +24,21 @@ Enemy.prototype.update = function(dt) {
     this.posX += this.moveSpeed * dt;
     //Looping enemy movement in a lane
     this.posX%=505;
+
+    checkPlayerPosition(this);
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.posX, this.posY);
 };
+
+var checkPlayerPosition = function(enemyObj){
+    if(Math.abs(player.posY-enemyObj.posY)<=25 && Math.abs(player.posX-enemyObj.posX)<=74){
+        player.posX=randomPlayerPosX();
+        player.posY=randomPlayerPosY();
+    }
+}
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -46,6 +55,11 @@ var Player = function(positionX, positionY, movementX, movementY) {
 };
 
 Player.prototype.update = function(dt) {
+    if(player.posY===-25){
+        player.posX=randomPlayerPosX();
+        player.posY=randomPlayerPosY();
+        console.log("Win!!");
+    }
     //Player object doesn't need constant updation of properties. Hence, This function is empty
     //This function is declared to workaround the JS error for missing update function.
 };
@@ -77,17 +91,30 @@ Player.prototype.handleInput = function(loggedKey) {
             }
             break;
     }
+    //Refilling unpainted area in the canvas to remove residue to previous instance.
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, 505, 606);
 
 };
+
+var randomPlayerPosX = function(){
+    return ((Math.floor(Math.random()*5))*101);
+}
+
+var randomPlayerPosY = function(){
+    return (((4+Math.round(Math.random()))*83)-25);
+}
+
+var randomEnemyPos = function(){
+    return (((1+Math.floor(Math.random()*3))*83)-20);
+}
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [];
 //Creating New Player in a random location in the grass area
-player = new Player((Math.floor(Math.random()*5))*101,((4+Math.round(Math.random()))*83)-25,101,83);
-allEnemies.push(new Enemy(0,((1+Math.floor(Math.random()*3))*83)-20,50));
+player = new Player(randomPlayerPosX(),randomPlayerPosY(),101,83);
+allEnemies.push(new Enemy(0,randomEnemyPos(),50));
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
