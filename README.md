@@ -16,10 +16,10 @@ This project is part of a Nanodegree program at Udacity. The Main Branch was for
 * Lots of Free Time.
 
 ### Controls
-Up arrow- Moves player up
-Down arrow- Moves player down
-right arrow- Moves player right
-left arrow- Moves player left
+* Up Arrow- Moves player ups
+* Down Arrow- Moves player down
+* Right Arrow- Moves player right
+* Left Arrow- Moves player left
 
 ### Licenses
 
