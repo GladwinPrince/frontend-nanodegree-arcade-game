@@ -51,6 +51,9 @@ var Player = function(positionX, positionY, movementX, movementY) {
     this.moveX = movementX;
     this.moveY = movementY;
 
+    this.score=0;
+    this.level=1;
+    randomizeEnemies(this.level);
     this.sprite = 'images/char-boy.png';
 };
 
@@ -59,9 +62,14 @@ Player.prototype.update = function(dt) {
         player.posX=randomPlayerPosX();
         player.posY=randomPlayerPosY();
         console.log("Win!!");
+        player.score++;
+        if(player.score===5){
+            player.score=0;
+            player.level++;
+            randomizeEnemies(player.level);
+        }
     }
-    //Player object doesn't need constant updation of properties. Hence, This function is empty
-    //This function is declared to workaround the JS error for missing update function.
+    displayScore();
 };
 
 Player.prototype.render = function() {
@@ -99,22 +107,33 @@ Player.prototype.handleInput = function(loggedKey) {
 
 var randomPlayerPosX = function(){
     return ((Math.floor(Math.random()*5))*101);
-}
+};
 
 var randomPlayerPosY = function(){
     return (((4+Math.round(Math.random()))*83)-25);
-}
+};
 
 var randomEnemyPos = function(){
     return (((1+Math.floor(Math.random()*3))*83)-20);
-}
+};
+
+var randomizeEnemies = function(level){
+    allEnemies=[];
+    for(var i=0; i<level; i++){
+        allEnemies.push(new Enemy(0,randomEnemyPos(),(35+Math.random()*50)));
+    }
+};
+
+var displayScore = function(){
+    document.getElementById("score").innerHTML = player.score;
+    document.getElementById("level").innerHTML = player.level;
+};
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [];
 //Creating New Player in a random location in the grass area
 player = new Player(randomPlayerPosX(),randomPlayerPosY(),101,83);
-allEnemies.push(new Enemy(0,randomEnemyPos(),50));
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
