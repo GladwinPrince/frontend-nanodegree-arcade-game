@@ -21,11 +21,14 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.posX += this.moveSpeed * dt;
+    //Looping enemy movement in a lane
+    this.posX%=505;
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.sprite), this.posX, this.posY);
 };
 
 // Now write your own player class
@@ -51,13 +54,40 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.posX, this.posY);
 };
 
+Player.prototype.handleInput = function(loggedKey) {
+    switch (loggedKey) {
+        case "left":
+            if(player.posX!==0){
+                player.posX-=player.moveX;
+            }
+            break;
+        case "up":
+            if(player.posY!==-25){
+                player.posY-=player.moveY;
+            }
+            break;
+        case "right":
+            if((player.posX+player.moveX)<(5*101)){
+                player.posX+=player.moveX;
+            }
+            break;
+        case "down":
+            if((player.posY+player.moveY)<(5*83)){
+                player.posY+=player.moveY;
+            }
+            break;
+    }
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, 505, 606);
+
+};
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [];
 //Creating New Player in a random location in the grass area
-player = new Player((Math.floor(Math.random()*5))*101,((4+Math.round(Math.random()))*83)-25,0,0);
-
+player = new Player((Math.floor(Math.random()*5))*101,((4+Math.round(Math.random()))*83)-25,101,83);
+allEnemies.push(new Enemy(0,((1+Math.floor(Math.random()*3))*83)-20,50));
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
