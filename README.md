@@ -1,6 +1,6 @@
 # Frogger Game
 
-**Frogger** is a 1981 arcade game developed by Konami. This is a replica of the 1981 arcade game based on JavaScript programming Language.
+**Frogger** is a 1981 arcade game developed by Konami. This is a replica of the 1981 arcade game designed using JavaScript programming Language.
 
 ## How to Run
 1. Download a copy of this project from GitHub, either using the GitHub Zip file download or Clone the repository into your computer.
