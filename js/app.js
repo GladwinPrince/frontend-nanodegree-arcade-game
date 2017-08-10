@@ -1,19 +1,23 @@
 "use strict";
 // Enemies our player must avoid
+var Member = function(positionX, positionY, image){
+    //Initializing X-axis and Y-axis position of the Member
+    this.posX = positionX;
+    this.posY = positionY;
+    //Initializing position of Member image
+    this.sprite = image;
+};
+
 var Enemy = function(positionX, positionY, movementSpeed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-
-    //Initializing X-axis and Y-axis position of the enemy
-    this.posX = positionX;
-    this.posY = positionY;
+    //Constructing Member Object
+    Member.call(this, positionX, positionY, "images/enemy-bug.png");
     //Initializing movement speed of enemy
     this.moveSpeed = movementSpeed;
-
-    this.sprite = 'images/enemy-bug.png';
 };
 
 // Update the enemy's position, required method for game
@@ -46,9 +50,8 @@ Enemy.prototype.collisionDetection = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function(positionX, positionY, movementX, movementY) {
-    //Initializing X-axis and Y-axis position of the player
-    this.posX = positionX;
-    this.posY = positionY;
+    //Constructing Member Object
+    Member.call(this, positionX, positionY, "images/char-boy.png");
     //Initializing X-axis and Y-axis movement distance of player
     this.moveX = movementX;
     this.moveY = movementY;
@@ -57,7 +60,6 @@ var Player = function(positionX, positionY, movementX, movementY) {
     this.level = 1;
     //Generating enemies based on player level
     this.randomizeEnemies();
-    this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function(dt) {
@@ -67,7 +69,7 @@ Player.prototype.update = function(dt) {
         this.posY = randomPlayerPosY();
         console.log("Win!!");
         //updating score based on victory
-        player.score++;
+        this.score++;
         if (this.score === 5) {
             this.score = 0;
             this.level++;
@@ -130,7 +132,7 @@ var randomEnemyPos = function() {
 Player.prototype.randomizeEnemies = function() {
     //Generating random enemies based on level
     allEnemies = [];
-    for (var i = 0; i < this.level; i++) {
+    for (var i = 0, len=this.level; i < len; i++) {
         allEnemies.push(new Enemy(0, randomEnemyPos(), (35 + Math.random() * 50)));
     }
 };
