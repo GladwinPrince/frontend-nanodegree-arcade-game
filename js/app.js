@@ -1,3 +1,4 @@
+"use strict";
 // Enemies our player must avoid
 var Enemy = function(positionX, positionY, movementSpeed) {
     // Variables applied to each of our instances go here,
@@ -39,7 +40,7 @@ Enemy.prototype.collisionDetection = function() {
         player.posX = randomPlayerPosX();
         player.posY = randomPlayerPosY();
     }
-}
+};
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -144,7 +145,7 @@ var displayScore = function() {
 // Place the player object in a variable called player
 var allEnemies = [];
 //Creating New Player in a random location in the grass area
-player = new Player(randomPlayerPosX(), randomPlayerPosY(), 101, 83);
+var player = new Player(randomPlayerPosX(), randomPlayerPosY(), 101, 83);
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
