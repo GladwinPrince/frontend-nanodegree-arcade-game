@@ -6,9 +6,7 @@
 1. Download a copy of this project from GitHub, either using the GitHub Zip file download or Clone the repository into your computer.
 2. Open the index.html file in the Project using a Web Browser that supports JavaScript.
 
-                            (or)
-
-* Use the GitHub hosted version of the page [Here](https://gladwinprince.github.io/frontend-nanodegree-arcade-game/)
+* You can use the GitHub hosted version of the page [Here](https://gladwinprince.github.io/frontend-nanodegree-arcade-game/)
 
 ## Sources
 This project is part of a Nanodegree program at Udacity. The Main Branch was forked from Udacity's GitHub project [Click Here](https://github.com/udacity/frontend-nanodegree-arcade-game).
