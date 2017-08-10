@@ -25,7 +25,7 @@ Enemy.prototype.update = function(dt) {
     //Looping enemy movement in a lane
     this.posX %= 505;
     //Checking whether the player is in range of enemy
-    collisionDetection(this);
+    this.collisionDetection();
 };
 
 // Draw the enemy on the screen, required method for game
@@ -33,9 +33,9 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.posX, this.posY);
 };
 
-Enemy.prototype.collisionDetection = function(enemyObj) {
+Enemy.prototype.collisionDetection = function() {
     //Checking if the player is in range of the enemy and resetting the player
-    if (Math.abs(player.posY - enemyObj.posY) <= 25 && Math.abs(player.posX - enemyObj.posX) <= 74) {
+    if (Math.abs(player.posY - this.posY) <= 25 && Math.abs(player.posX - this.posX) <= 74) {
         player.posX = randomPlayerPosX();
         player.posY = randomPlayerPosY();
     }
@@ -55,22 +55,22 @@ var Player = function(positionX, positionY, movementX, movementY) {
     this.score = 0;
     this.level = 1;
     //Generating enemies based on player level
-    randomizeEnemies(this.level);
+    this.randomizeEnemies();
     this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function(dt) {
     //Checking if the player has reached the destination
-    if (player.posY === -25) {
-        player.posX = randomPlayerPosX();
-        player.posY = randomPlayerPosY();
+    if (this.posY === -25) {
+        this.posX = randomPlayerPosX();
+        this.posY = randomPlayerPosY();
         console.log("Win!!");
         //updating score based on victory
         player.score++;
-        if (player.score === 5) {
-            player.score = 0;
-            player.level++;
-            randomizeEnemies(player.level);
+        if (this.score === 5) {
+            this.score = 0;
+            this.level++;
+            this.randomizeEnemies();
         }
     }
     //Displaying Score
@@ -85,23 +85,23 @@ Player.prototype.handleInput = function(loggedKey) {
     //Finding and executing input command
     switch (loggedKey) {
         case "left":
-            if (player.posX !== 0) {
-                player.posX -= player.moveX;
+            if (this.posX !== 0) {
+                this.posX -= this.moveX;
             }
             break;
         case "up":
-            if (player.posY !== -25) {
-                player.posY -= player.moveY;
+            if (this.posY !== -25) {
+                this.posY -= this.moveY;
             }
             break;
         case "right":
-            if ((player.posX + player.moveX) < (5 * 101)) {
-                player.posX += player.moveX;
+            if ((this.posX + this.moveX) < (5 * 101)) {
+                this.posX += this.moveX;
             }
             break;
         case "down":
-            if ((player.posY + player.moveY) < (5 * 83)) {
-                player.posY += player.moveY;
+            if ((this.posY + this.moveY) < (5 * 83)) {
+                this.posY += this.moveY;
             }
             break;
     }
@@ -126,10 +126,10 @@ var randomEnemyPos = function() {
     return (((1 + Math.floor(Math.random() * 3)) * 83) - 20);
 };
 
-Player.prototype.randomizeEnemies = function(level) {
+Player.prototype.randomizeEnemies = function() {
     //Generating random enemies based on level
     allEnemies = [];
-    for (var i = 0; i < level; i++) {
+    for (var i = 0; i < this.level; i++) {
         allEnemies.push(new Enemy(0, randomEnemyPos(), (35 + Math.random() * 50)));
     }
 };
