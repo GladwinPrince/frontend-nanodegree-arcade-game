@@ -25,7 +25,7 @@ Enemy.prototype.update = function(dt) {
     //Looping enemy movement in a lane
     this.posX %= 505;
     //Checking whether the player is in range of enemy
-    checkPlayerPosition(this);
+    collisionDetection(this);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -33,7 +33,7 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.posX, this.posY);
 };
 
-var checkPlayerPosition = function(enemyObj) {
+Enemy.prototype.collisionDetection = function(enemyObj) {
     //Checking if the player is in range of the enemy and resetting the player
     if (Math.abs(player.posY - enemyObj.posY) <= 25 && Math.abs(player.posX - enemyObj.posX) <= 74) {
         player.posX = randomPlayerPosX();
@@ -126,7 +126,7 @@ var randomEnemyPos = function() {
     return (((1 + Math.floor(Math.random() * 3)) * 83) - 20);
 };
 
-var randomizeEnemies = function(level) {
+Player.prototype.randomizeEnemies = function(level) {
     //Generating random enemies based on level
     allEnemies = [];
     for (var i = 0; i < level; i++) {
